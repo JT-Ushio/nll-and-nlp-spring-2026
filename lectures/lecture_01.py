@@ -164,7 +164,6 @@ def intro():
     text("- John E. Hopcroft, Rajeev Motwani, and Jeffrey D. Ullman"), link(title="《自动机理论、语言和计算导论》", url="http://www.lingviko.net/feng/ml.pdf")
 
 
-
 def todo():
     text("[ ] 注册"), link(title="Github", url="https://github.com/"), text("账号")
     text("[ ] 申请学生认证，获得一系列开发工具"), link(title="GitHub Education", url="https://docs.github.com/en/education/about-github-education/github-education-for-students/apply-to-github-education-as-a-student")
