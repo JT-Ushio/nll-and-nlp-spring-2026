@@ -221,7 +221,7 @@ def propositional_logic():
 
     text("**Exclusive Disjunction (XOR, for eXclusive OR): [p XOR q]**")
     text("- **“∨” is actually Inclusive Disjunction.**")
-    text("- Example: *Susan volunteers on Monday or Wednesday (14)*.")
+    text("- Example: *Susan volunteers on Monday or Wednesday*.")
     text("- Inclusive interpretation: The sentence **is still true if she volunteers on both days**.")
     text("- Exclusive interpretation: specifies that **only one of the disjuncts is true**.")
     text("- *Susan volunteers on Monday or Wednesday, but not both.*")

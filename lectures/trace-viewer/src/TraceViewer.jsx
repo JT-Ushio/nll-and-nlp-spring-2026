@@ -1,10 +1,44 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
 import { getLast } from './utils';
 import { marked } from 'marked';
+// import katex from 'katex';
+// import 'katex/dist/katex.min.css';
+
+
+function MarkdownRenderer({ content, style }) {
+  const [renderedContent, setRenderedContent] = useState("");
+  const spanRef = useRef(null);
+
+  useEffect(() => {
+    const trailingWhitespace = content.endsWith(" ") ? "&nbsp;" : "";
+    let markdown = marked(content);
+    markdown = markdown.replace(/\n$/, '');
+    markdown = markdown.replace(/^<p>/g, '').replace(/<\/p>$/g, '');
+
+    setRenderedContent(markdown + trailingWhitespace);
+  }, [content]);
+
+  useEffect(() => {
+    if (renderedContent && window.MathJax && spanRef.current) {
+      window.MathJax.typesetClear([spanRef.current]);
+      window.MathJax.typeset([spanRef.current]);
+    }
+  });
+
+  return (
+    <span
+      ref={spanRef}
+      className="markdown"
+      style={style}
+      dangerouslySetInnerHTML={{ __html: renderedContent }}
+    />
+  );
+}
+
 
 function TraceViewer() {
   // Parse URL params
@@ -591,36 +625,36 @@ function scrollIntoViewIfNeeded(el) {
   }
 }
 
-function MarkdownRenderer({ content, style }) {
-  const [renderedContent, setRenderedContent] = useState("");
+// function MarkdownRenderer({ content, style }) {
+//   const [renderedContent, setRenderedContent] = useState("");
 
-  // Render and set `renderedContent`
-  useEffect(() => {
-    // Preserve the trailing whitespace
-    const trailingWhitespace = content.endsWith(" ") ? "&nbsp;" : "";
+//   // Render and set `renderedContent`
+//   useEffect(() => {
+//     // Preserve the trailing whitespace
+//     const trailingWhitespace = content.endsWith(" ") ? "&nbsp;" : "";
 
-    // Because we're rendering only one line of content at a time, the markdown
-    // conversion puts <p> tags which produce a lot of vertical space.  So we
-    // remove them.
-    let markdown = marked(content);
-    markdown = markdown.replace(/\n$/, '');
-    markdown = markdown.replace(/^<p>/g, '').replace(/<\/p>$/g, '');
+//     // Because we're rendering only one line of content at a time, the markdown
+//     // conversion puts <p> tags which produce a lot of vertical space.  So we
+//     // remove them.
+//     let markdown = marked(content);
+//     markdown = markdown.replace(/\n$/, '');
+//     markdown = markdown.replace(/^<p>/g, '').replace(/<\/p>$/g, '');
 
-    // Add the trailing whitespace back
-    markdown = markdown + trailingWhitespace;
-    setRenderedContent(markdown);
-  }, [content]);  // Only re-run if content changes
+//     // Add the trailing whitespace back
+//     markdown = markdown + trailingWhitespace;
+//     setRenderedContent(markdown);
+//   }, [content]);  // Only re-run if content changes
 
-  // Trigger MathJax to render
-  // TODO: this flickers every time we rerender (step)
-  useEffect(() => {
-    if (renderedContent && window.MathJax) {
-      window.MathJax.typeset();
-    }
-  }, [renderedContent]);  // If put this, then don't update; otherwise too slow
+//   // Trigger MathJax to render
+//   // TODO: this flickers every time we rerender (step)
+//   useEffect(() => {
+//     if (renderedContent && window.MathJax) {
+//       window.MathJax.typeset();
+//     }
+//   }, [renderedContent]);  // If put this, then don't update; otherwise too slow
 
-  return <span className="markdown" style={style} dangerouslySetInnerHTML={{ __html: renderedContent }} />;
-}
+//   return <span className="markdown" style={style} dangerouslySetInnerHTML={{ __html: renderedContent }} />;
+// }
 
 function ExternalLink({ link, style }) {
   const anchorText = getReferenceAnchorText(link);
