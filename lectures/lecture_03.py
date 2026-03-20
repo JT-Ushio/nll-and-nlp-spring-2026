@@ -50,7 +50,7 @@ def background():
     text("- 例如，如果$\Sigma = \{a, b\}$，则$\Sigma^* = \{\epsilon, a, b, aa, ab, ba, bb, aaa, aab, \ldots\}$，其中$\epsilon$表示空字符串。")
     text("- 定义在 $\Sigma$ 上的语言是 $\Sigma$  中的符号组成的字符串的集合，")
     text("- → 定义在 $\Sigma$ 上的语言永远是 $\Sigma^*$ 的子集。")
-    text(r"- 例如，如果$L = \\{a^n, b^n | n\ge 0\\}$，则$\epsilon/ab/aab/aabb$ $\in or\notin L$?")
+    text(r"- 例如，如果$L = \\{a^nb^n | n\ge 0\\}$，则$\epsilon/ab/aab/aabb$ $\in or\notin L$?")
 
     text("**语言相关操作的数学定义与表示**")
     image("images/language_op.png", width=400)
