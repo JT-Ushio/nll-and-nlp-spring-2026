@@ -217,20 +217,47 @@ def pushdown_automata():
     text("### 下推自动机")
     text("- 下推自动机（Pushdown Automaton, PDA）是一种比有限自动机更强大的计算模型，可以识别上下文无关语言。")
     text("- 下推自动机由一个七元组 $(Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$ 组成：")
-    text("1. $Q$ 是一个有限状态集合。")
-    text("2. $\Sigma$ 是一个有限输入符号集合（字母表）。")
-    text("3. $\Gamma$ 是一个有限栈符号集合。")
-    text(r"4. $\delta: Q \times (\Sigma \cup \\{\\epsilon\\}) \times \Gamma \rightarrow \\mathcal{P}(Q \times \\Gamma^*)$ 是一个转移函数，定义了在状态 $q$ 接收输入符号 $a$（或空输入 $\epsilon$）并且栈顶符号为 $X$ 时，可以转移到哪些状态并且对栈进行什么操作。")
-    text("5. $q_0 \in Q$ 是初始状态。")
-    text("6. $Z_0 \in \Gamma$ 是初始栈符号。")
-    text("7. $F \subseteq Q$ 是接受状态集合。")
+    text("1. $Q$ 是一个有限**状态**集合。")
+    text("2. $\Sigma$ 是一个有限**输入符号**集合（字母表）。")
+    text("3. $\Gamma$ 是一个有限**栈符号**集合。")
+    text("4. $\delta$ 是一个**转移函数**，定义了在状态 $q$ 接收输入符号 $a$（或空输入 $\epsilon$）并且栈顶符号为 $X$ 时，可以转移到哪些状态并且对栈进行什么操作。")
+    text(r"$$\delta: Q \times (\Sigma \cup \\{\\epsilon\\}) \times \Gamma \rightarrow \\mathcal{P}(Q \times \\Gamma^*)$$")
+    text("转移函数接收 3 个参数：")
+    text("- 一个状态 $q\in Q$，表示当前状态。")
+    text("- 一个输入符号 $a\in\Sigma\cup\{\epsilon\}$，表示当前读取的输入。")
+    text("- 一个栈顶符号 $Z\in\Gamma$，表示当前栈顶的符号。")
+    text(r"$$\delta(q, a, Z)=\left\{(p, \alpha) \mid p \in Q, \alpha \in \Gamma^*\right\}$$")
+    text("表示PDA可以在处于状态$q$，接收输入$a$，并且观察到栈顶元素为$Z$的时候：")
+    text("- 状态更新为$p$")
+    text("- 从输入首部接收一个字符$a$。")
+    text("- 栈顶元素$Z$替换为序列$\alpha$")
+    text("5. $q_0 \in Q$ 是**初始状态**。")
+    text("6. $Z_0 \in \Gamma$ 是**初始栈符号**。")
+    text("7. $F \subseteq Q$ 是**接受状态**集合。")
+
+    image("images/pda_demo.png", width=600)
+
     text("- 下推自动机的运行：")
     text("1. 初始状态为 $q_0$，初始栈符号为 $Z_0$。")
     text("2. 在每一步，自动机根据当前状态、输入符号（或空输入）和栈顶符号，根据转移函数 $\delta$ 转移到新的状态，并且对栈进行相应的操作（如弹出栈顶符号、推入新的符号等）。")
     text("3. 当输入字符串被完全读取，并且自动机处于接受状态时，输入字符串被接受。")
+
     text("- 下推自动机可以用来识别上下文无关语言，例如：")
-    text(r"1. 语言 $L = \\{a^n b^n | n \\geq 0\\}$ 可以由一个下推自动机识别，该自动机会在读取 $a$ 时将一个符号推入栈中，在读取 $b$ 时弹出一个符号，最后当输入被完全读取且栈为空时接受。")
-    text(r"2. 语言 $L = \\{a^n b^m c^n | n, m \\geq 0\\}$ 可以由一个下推自动机识别，该自动机会在读取 $a$ 时将一个符号推入栈中，在读取 $b$ 时不对栈进行操作，在读取 $c$ 时弹出一个符号，最后当输入被完全读取且栈为空时接受。")
+    text(r"1. 语言 $L = \\{0^n 1^n | n \\geq 1\\}$ 可以由一个下推自动机识别，该自动机会在读取 $0$ 时将一个符号推入栈中，在读取 $1$ 时弹出一个符号，最后当输入被完全读取且栈为空时接受。")
+    text("- 状态转移图如下：")
+    image("images/pda_example1.png", width=600)
+
+    text("- PDA接收输入示例如下：")
+    image("images/pda_example2.png", width=600)
+
+    text("接收过程也可以用列表表达式描述：")
+    text(r"$$\left(q, 000111, Z_0\right) \vdash\left(q, 00111, X Z_0\right) \vdash\left(q, 0111, X X Z_0\right) \vdash\left(q, 111, X X X Z_0\right) $$")
+    text(r"$$\vdash\left(p, 11, X X Z_0\right) \vdash\left(p, 1, X Z_0\right) \vdash\left(p, \varepsilon, Z_0\right) \vdash\left(f, \varepsilon, Z_0\right)$$")
+
+    text("✍️：如果输入字符串为 `0001111` 呢？")
+    text("🤔：S → 0S1 | 01，这种产生式形式如何用下推自动机实现？")
+
+    text(r"2. ✍️：语言 $L = \\{a^n b^m c^n | n, m \\geq 0\\}$ 可以由一个下推自动机识别，该自动机会在读取 $a$ 时将一个符号推入栈中，在读取 $b$ 时不对栈进行操作，在读取 $c$ 时弹出一个符号，最后当输入被完全读取且栈为空时接受。")
 
 
 def Q_and_A():
