@@ -3,73 +3,35 @@ from execute_util import link, image, text
 def main():
     text("# FORE20067：面向语言信息处理的语言逻辑理论 \n## Natural Language Logic and Natural Language Processing")
     image("images/stuff.png", width=600)
-    text("## 06: 上下文无关文法在NLP中的应用")
+    text("## 07: 上下文有关文法与线性有界自动机")
 
-    dependency_structure()
+    context_sensitive_grammar()
     assignment1()
 
-def dependency_structure():
-    text("### 依存句法分析")
+def context_sensitive_grammar():
+    text("### 上下文有关文法")
+    image("images/chomsky_language.png", width=400)
+    text("**上下文有关文法（Context-Sensitive Grammar, CSG）**：是一种形式文法，其中的产生式规则允许在非终结符的两侧都有上下文。")
+    text("- 形式定义：一个上下文有关文法G是一个四元组($G = (N, \Sigma, P, S)$)，其中$N$是非终结符集合，$\Sigma$ 是终结符集合，$P$ 是产生式规则集合，$S$ 是开始符号。")
+    text(r"- 产生式规则的形式：$\alpha \to \beta$，其中 $\alpha$ 和 $\beta$ 都是由非终结符和终结符组成的字符串，并且 $\alpha$ 至少包含一个非终结符。")
+    text("- 上下文有关文法比上下文无关文法更强大，可以描述更多的语言，但也更复杂。")
 
-    text("**依存句法分析（Dependency Parsing）**：分析句子中词语之间的依存关系，构建依存句法树。")
-    text("- 依存句法树是一种有向无环图，其中每个节点代表一个词语，每条边代表两个词语之间的依存关系。")
+    text("**示例：一个CSG文法无法用CFG描述**")
+    text(r"- 语言$L = \\{a^n b^n c^n | n \geq 1\\}$，即由相同数量的a、b、c组成的字符串集合。")
+    text("- 该语言可以由以下CSG文法生成：")
+    text("S → abc | aSQ")
+    text("bQc → bbcc")
+    text("cQ → Qc")
+    text("- 该语言无法由任何CFG生成，因为CFG无法同时保证a、b、c的数量相同。")
+    image("images/csg_example.png", width=600)
 
-    image("images/dep_tree_intro.png", width=600)
+    text(r"✍️：有以下文法：$G = (\{S,B,C\},\{a,b,c\},P, S)$,其中$P=$")
+    text("```json\n{\n\tS → aSBC | abC, \n\tCB → BC, \n\tbB → bb, \n\tbC → bc, \n\tcC → cc\n}\n```")
+    text("这个<mark>CSG</mark>文法生成的语言是什么？")
 
-    text("- 常见的依存关系包括：")
-    image("images/dep_relations.png", width=600)
-
-    text("依存句法分析任务是NLP的关键基础任务之一")
-    image("images/dep_parsing_task.png", width=600)
-
-    text("### 依存句法分析有两种主流算法")
-
-    text("1. 基于图的算法：将依存句法分析问题建模为一个图结构预测问题，使用最大生成树算法来寻找最优的依存树。")
-    image("images/graph_based_parsing.png", width=600)
-
-    text("- 其关键组件包括评分函数和解码算法")
-    text("- 解码算法（如Chu-Liu/Edmonds算法，最大生成树算法）用于从所有可能的依存关系中找到得分最高的合法依存树。")
-
-    image("images/biaffine_scoring.png", width=600)
-    text("- 评分函数用于评估每条可能的依存关系的得分，通常使用双仿射（biaffine）模型来计算得分。")
-    text("- 🤔：如何处理有向边？")
-    text("- 🤔：如何预测依存关系？")
-    text("- 评分函数也可以很复杂")
-    image("images/gnn_parser.png", width=600)
-
-
-    text("2. 基于转移系统的算法：通过定义一套转移操作（如Shift、Reduce、Left-Arc、Right-Arc等）来构建依存树。")
-    image("images/transition_system.png", width=600)
-    image("images/transition_based_parsing.png", width=400)
-
-    text("- 其关键组件在于特征抽取")
-    image("images/transition_system_features.png", width=400)
-    text("- 栈特征")
-    text("- 队列特征")
-    text("- 动作历史")
-
-
-    text("- 一些有价值特征会被忽略，例如")
-    image("images/meaningful_features.png", width=600)
-
-    text("- 结构无关的语义表示 + 结构相关的指示器特征（覆盖所有信息）")
-    image("images/full_features.png", width=600)
-
-    text("### 实验结果")
-    image("images/dep_parsing_res.png", width=600)
-    text("- 基于图的算法通常在准确率上优于基于转移系统的算法，但后者在速度上更快。")
-
-    text("### 如何计算依存句法树的准确率？")
-    text("- Unlabeled Attachment Score (UAS)：计算正确预测的依存关系数量占总依存关系数量的比例。")
-    text("- Labeled Attachment Score (LAS)：计算正确预测的依存关系及其标签数量占总依存关系数量的比例。")
-    text("- 为什么UAS和LAS会有差异？ 因为有些依存关系虽然正确预测了，但标签错误了。")
-    text("- 树的形态对，但标签错误了")
-
-    image("images/uas_las.png", width=600)
-    text("✍️：预测结果的UAS和LAS分数分别是？")
-
-    text("🤔：如果一条依存边，方向预测反了，UAS和LAS会如何？")
-    text("🤔：LAS是否会大于UAS？")
+    text("质数长度语言：{$a^p$ | p is a prime number}")
+    text(r"重复字符串语言：{$ww | w \in \\{a, b\\}^+$}")
+    text("NLP中的一些语言现象，如中心嵌套结构（center embedding）和非投影依赖（cross-serial dependencies），也可以用CSG来描述。")
 
 
 def assignment1():
@@ -95,7 +57,6 @@ def assignment1():
     text("4. Non-Projective Arc-Hybrid系统：在Arc-Hybrid系统的基础上增加了处理非投影依存关系的能力。")
     image("images/np_arc_hybrid.png", width=400)
 
-    image("images/conllu_example.png", width=600)
     text("✍️：示例依存树分别对应的四种转移系统序列是？")
 
     text("### 任务①：选择<mark>一种或多种语言</mark>，使用上述转移系统中的<mark>一种或多种</mark>，将UD树库中的依存句法树序列化为转移操作序列。")
@@ -108,7 +69,7 @@ def assignment1():
         "labels": ["", "nsubj", "", "", "obj", ...],
     } # @inspect output_format
 
-    text("### 任务②：选择<mark>一种或多种语言</mark>，使用上述转移系统中的<mark>一种或多种</mark>，输入一个转移动作序列，输出一条UD样本(一颗完整的依存树)。")
+    text("### 任务②：选择<mark>一种或多种语言</mark>，输入一个转移动作序列，输出一条UD样本(一颗完整的依存树)。")
     text("- 输入： 一个json对象，包含**转移系统名称**（大小写敏感）和对应的**转移动作序列**与**依存标签序列**")
     output_format = {
         "transition_system": "Arc-Standard",

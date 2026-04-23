@@ -103,9 +103,6 @@ def context_free():
 
     text(r"✍️：构造上下文无关文法用以产生 $\\{a_1a_2...a_na_n...a_2a_1|a_i\in\\{0,1\\}, 1\le i\le n\\}$。")
     text(r"✍️：构造一个上下文无关文法，生成语言 $L = \\{a^n b^m c^n | n, m \\geq 0\\}$。")
-    text(r"✍️：有以下文法：$G = (\{S,B,C\},\{a,b,c\},P, S)$,其中$P=$")
-    text("```json\n{\n\tS → aSBC | abC, \n\tCB → BC, \n\tbB → bb, \n\tbC → bc, \n\tcC → cc\n}\n```")
-    text("这个文法生成的语言是什么？")
 
     text("**例子3，简单算术运算**：")
     text(r"- 非终结符集合 $V = \\{E, op\\}$")
