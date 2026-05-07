@@ -129,7 +129,7 @@ def assignment1():
     text("- ......")
     text("输入输出格式检查脚本：下次课提供")
     text("Copilot CLI作业演示：下次课提供")
-    text("<mark>**DDL：5月20日 24:00**</mark>")
+    text("<mark>**DDL：5月27日 24:00**</mark>")
 
 
 def Q_and_A():
