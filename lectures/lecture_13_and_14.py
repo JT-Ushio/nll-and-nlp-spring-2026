@@ -66,11 +66,49 @@ def chain_of_thought():
     text("### 通过Token来思考")
     text("- 早期的 CoT 推理改进工作涉及对人类编写的推理轨迹或经过答案正确性筛选的模型编写轨迹进行监督学习，后者可以被视为一种原始的强化学习（RL）形式")
     text("- 更直接的，强化学习微调")
+
+    text("### RLHF（Reinforcement Learning with Human Feedback）")
+    text("- RLHF 是一种训练方法，结合了强化学习和人类反馈，以优化模型的行为，使其更符合人类的期望和需求。")
+    text("- 过去几年里各种 LLM 根据人类输入提示 (prompt) 生成多样化文本的能力令人印象深刻。然而，对生成结果的评估是主观和依赖上下文的.")
+    text("- 例如，我们希望模型生成一个有创意的故事、一段真实的信息性文本，或者是可执行的代码片段，这些结果难以用现有的基于规则的文本生成指标来衡量。")
+    text("- 现有的预训练语言模型通常以预测下一个单词的方式和简单的损失函数 (如交叉熵) 来建模，没有显式地引入人的偏好和主观意见。")
+
+    text("- 用生成文本的人工反馈作为性能衡量标准，或者更进一步用该反馈作为损失来优化模型，这就是 RLHF 的思想")
+    text("- RLHF 使得在一般文本数据语料库上训练的语言模型能和复杂的人类价值观对齐。")
+    image("images/rlhf_intro.png", width=600)
+    image("images/rlhf_res.png", width=600)
+
+    text("- RLHF的步骤：")
+    text("1. 预训练&SFT：首先在大规模文本数据上预训练一个语言模型，使其具备基本的语言理解和生成能力。")
+    text("2. 收集人类反馈：通过让人类评审员对模型生成的文本进行评价，收集关于文本质量、相关性、创造性等方面的反馈。这些反馈可以是评分、排名或者具体的改进建议。")
+    text("3. 训练奖励模型：使用收集到的人类反馈来训练一个奖励模型，该模型能够预测人类对生成文本的评价。奖励模型的输入是模型生成的文本，输出是一个分数，表示文本的质量或相关性。")
+    text("4. 强化学习优化：使用强化学习算法（如 Proximal Policy Optimization, PPO）来优化语言模型，使其生成的文本能够获得更高的奖励模型分数。通过不断迭代，模型逐渐学会生成更符合人类期望的文本。")
+    image("images/rlhf_steps.png", width=600)
+    image("images/rm_training_loss.png", width=600)
+    image("images/reward_func.png", width=600)
+
+    text("🤔：为什么会有后面这一项？")
+
+    text("- 避免RL偏离：RLHF的一个挑战是，强化学习优化可能会导致模型生成的文本偏离预训练阶段学到的语言模式，从而产生不自然或不连贯的文本。")
+    text("- PPO=**近端**策略优化（Proximal Policy Optimization），是一种强化学习算法，旨在通过限制每次更新的幅度来避免模型生成文本的质量下降。")
+
+    image("images/rlhf_res2.png", width=600)
+    image("images/rlhf_res3.png", width=600)
+    image("images/rlhf_res4.png", width=600)
+    image("images/rlhf_res5.png", width=600)
+    image("images/rlhf_label.png", width=800)
+    image("images/rlhf_human.png", width=480)
+
+    image("images/pretraining.png", width=600)
+    image("images/reward-model.png", width=600)
+    image("images/rlhf.png", width=600)
+
     image("images/smol-r1.png", width=600)
     image("images/smol-r1-2.png", width=600)
     image("images/smol-r1-res1.png", width=600)
     image("images/smol-r1-res2.png", width=600)
     image("images/smol-r1-res3.png", width=600)
+
 
 
 def assignment1():
