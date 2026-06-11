@@ -6,7 +6,6 @@ def main():
     text("## 13: 思维链与大语言模型中的逻辑涌现")
 
     chain_of_thought()
-    assignment1()
 
 def chain_of_thought():
     text("### 思维链")
@@ -106,69 +105,49 @@ def chain_of_thought():
     image("images/smol-r1.png", width=600)
     image("images/smol-r1-2.png", width=600)
     image("images/smol-r1-res1.png", width=600)
+
+    image("images/orm.png", width=600)
+    image("images/prm.png", width=600)
+
     image("images/smol-r1-res2.png", width=600)
+
+    image("images/he_and_se.png", width=600)
+
+
     image("images/smol-r1-res3.png", width=600)
+    image("images/ms_res1.png", width=600)
+    image("images/ms_res2.png", width=600)
+    image("images/ms_res3.png", width=600)
+    image("images/ms_res4.png", width=600)
 
+    image("images/dpsk_r1_paper.png", width=600)
+    image("images/dpsk_r1_intro.png", width=600)
+    image("images/dpsk_r1_res1.png", width=600)
+    image("images/dpsk_r1_cost.png", width=600)
 
+    image("images/dpsk_r1_method.png", width=600)
+    image("images/dpsk_r1_rw1.png", width=600)
+    image("images/dpsk_r1_rw2.png", width=600)
+    image("images/dpsk_r1_rw3.png", width=600)
+    image("images/dpsk_r1_rw4.png", width=600)
 
-def assignment1():
-    text("## Assignment 1: 基于转移系统的依存句法树序列化")
+    image("images/dpsk_r1_res2.png", width=600)
+    image("images/dpsk_r1_rm_prompt.png", width=600)
+    image("images/dpsk_r1_rm_prompt_zh.png", width=600)
 
-    text("### 数据集：[Universal Dependencies 2.7](https://huggingface.co/datasets/albertvillanova/universal_dependencies) (UDv2.7)树库")
-    link(title="[通用依存树库项目]", url="https://universaldependencies.org/")
-    text("- 104种语言")
-    text("- 依存句法树以[CoNLL-U格式](https://universaldependencies.org/format.html#syntactic-annotation)提供，每行包含一个词语及其相关信息（如词性、依存关系等）。")
-    text("数据集加载环境（tested）：")
-    text("```python\n pip install datasets==2.17.1 \n pip install conllu==6.0.0 \n```\n")
+    image("images/dpsk_r1_rldata.png", width=600)
+    image("images/dpsk_r1_sftdata.png", width=600)
+    image("images/dpsk_r1_lc.png", width=600)
+    image("images/dpsk_r1_course.png", width=600)
+    image("images/dpsk_r1_case.png", width=600)
 
-    text("### 四种**可选**转移系统的定义")
-    text("1. Arc-Standard系统：使用Shift、Left-Arc、Right-Arc三种操作来构建依存树。")
-    image("images/arc_standard.png", width=400)
+    text("🤔：思考过程是否需要以自然语言的形式？")
 
-    text("2. Arc-Eager系统：使用Shift、Left-Arc、Right-Arc、Reduce四种操作来构建依存树。")
-    image("images/arc_eager.png", width=400)
-
-    text("3. Arc-Hybrid系统：使用Shift、Left-Arc、Right-Arc三种操作来构建依存树，但在某些情况下允许提前建立依存关系。")
-    image("images/arc_hybrid.png", width=400)
-
-    text("4. Non-Projective Arc-Hybrid系统：在Arc-Hybrid系统的基础上增加了处理非投影依存关系的能力。")
-    image("images/np_arc_hybrid.png", width=400)
-
-    text("✍️：示例依存树分别对应的四种转移系统序列是？")
-
-    text("### 任务①：选择<mark>一种或多种语言</mark>，使用上述转移系统中的<mark>一种或多种</mark>，将UD树库中的依存句法树序列化为转移操作序列。")
-    text("即：输入一条UD样本(一颗完整的依存树)，输出其对应的转移操作动作序列。")
-    text("- 输入： `dataset['test'][0]` ")
-    text("- 输出： 一个json对象，包含**转移系统名称**（大小写敏感）和对应的**转移动作序列**与**依存标签序列**")
-    output_format = {
-        "transition_system": "Arc-Standard",
-        "actions": ["sh", "la", "sh", "sh", "ra", ...],
-        "labels": ["", "nsubj", "", "", "obj", ...],
-    } # @inspect output_format
-
-    text("### 任务②：选择<mark>一种或多种语言</mark>，输入一个转移动作序列，输出一条UD样本(一颗完整的依存树)。")
-    text("- 输入： 一个json对象，包含**转移系统名称**（大小写敏感）和对应的**转移动作序列**与**依存标签序列**")
-    input_format = {
-        "transition_system": "Arc-Standard",
-        "actions": ["sh", "la", "sh", "sh", "ra", ...],
-        "labels": ["", "nsubj", "", "", "obj", ...],
-    } # @inspect output_format
-    text("- 输出： `dataset['test'][0]` ")
-
-    text("提交：飞书文档包含**实验配置**和**转移操作动作序列生成代码**")
-    text("实验报告包含至少<mark>2个结论</mark>")
-    text("可探究问题：")
-    text("- 不同语言、不同领域的依存关系分布是否存在差异？")
-    text("- 不同长度范围下，依存关系分布是否存在差异？")
-    text("- 不同转移系统的成功率如何？若存在失败的句子，可以手动分析一条例句，解释为什么失败")
-    text("🤔：什么情况下会出现失败？")
-    text("- 统计平均依存距离（Average Dependency Distance）在不同语言、不同领域、不同标签范围下的分布情况。")
-    text("- 统计不同依存标签的平均出现时刻比例，为什么有些依存关系比其他关系更早出现？")
-    text("- ......")
-    text("输入输出格式检查脚本：下次课提供")
-    text("Copilot CLI作业演示：下次课提供")
-    text("<mark>**DDL：5月27日 24:00**</mark>")
-
+    image("images/coconut_paper.png", width=600)
+    image("images/figure_1_meta_3.png", width=600)
+    image("images/training_stage_figure.png", width=600)
+    image("images/new_figure_6.png", width=600)
+    image("images/figure_5_revised_1111.png", width=600)
 
 def Q_and_A():
     text("# 问答环节：欢迎大家提问！")
