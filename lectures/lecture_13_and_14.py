@@ -28,25 +28,24 @@ def chain_of_thought():
     image("images/cot_res4.png", width=600)
     image("images/cot_res5.png", width=480)
 
-    link(title="零样本思维链，Google Brain+东京大学，2023", url="https://arxiv.org/pdf/2405.14101")
-    image("images/zero_shot_cot1.jpg", width=600)
-    image("images/zero_shot_cot2.jpg", width=600)
+    # link(title="零样本思维链，Google Brain+东京大学，2023", url="https://arxiv.org/pdf/2405.14101")
+    # image("images/zero_shot_cot1.jpg", width=600)
+    # image("images/zero_shot_cot2.jpg", width=600)
 
-    image("images/zero_cot_res1.png", width=600)
-    image("images/zero_cot_res2.png", width=600)
-    image("images/zero_cot_res3.png", width=600)
+    # image("images/zero_cot_res1.png", width=600)
+    # image("images/zero_cot_res2.png", width=600)
+    # image("images/zero_cot_res3.png", width=600)
 
     link(title="自我纠正+投票机制，Google Brain，2023", url="https://arxiv.org/abs/2203.11171")
 
     image("images/vote_cot.jpg", width=600)
 
     image("images/vote_cot_res1.png", width=600)
-    image("images/vote_cot_res1.png", width=600)
-    image("images/vote_cot_res1.png", width=600)
+    image("images/vote_cot_res2.png", width=600)
+    image("images/vote_cot_res3.png", width=600)
 
     text("🤔：你还能想到哪些其他的思维链变体吗？")
     link(title="思维链的其他变体", url="https://vxc3hj17dym.feishu.cn/wiki/IPoVw9QBRiJNPdkowUBcYWdTn1e")
-
 
     text("### 心理学的类比")
     text("- 在《思考，快与慢》（Thinking, Fast and Slow）一书中，丹尼尔・卡尼曼（Daniel Kahneman 基于「认知双系统理论」（dual process theory），将人类的思维方式划分为两种模式：快思考和慢思考")
